@@ -1,0 +1,172 @@
+An ER (Entity–Relationship) diagram shows entities, their attributes, and the relationships between them.
+
+For example, for an Online Shopping System:
+
+ER Diagram in Text
+CUSTOMER
+---------
+customer_id (PK)
+name
+email
+phone
+address
+     |
+     | 1 : M
+     |
+     v
+ORDER
+---------
+order_id (PK)
+customer_id (FK)
+order_date
+total_amount
+status
+     |
+     | 1 : M
+     |
+     v
+ORDER_ITEM
+---------
+order_item_id (PK)
+order_id (FK)
+product_id (FK)
+quantity
+unit_price
+     |
+     | M : 1
+     |
+     v
+PRODUCT
+---------
+product_id (PK)
+name
+description
+price
+stock
+category_id (FK)
+     |
+     | M : 1
+     |
+     v
+CATEGORY
+---------
+category_id (PK)
+category_name
+
+Relationship Summary
+CUSTOMER  1 ──────── M  ORDER
+
+ORDER     1 ──────── M  ORDER_ITEM
+
+PRODUCT   1 ──────── M  ORDER_ITEM
+
+CATEGORY  1 ──────── M  PRODUCT
+
+This means:
+
+One Customer can place many Orders.
+
+One Order can contain many Order Items.
+
+One Product can appear in many Order Items.
+
+One Category can contain many Products.
+
+ER Diagram Coding — Mermaid
+You can paste this into a Mermaid-compatible editor/documentation tool:
+
+erDiagram
+
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : included_in
+    CATEGORY ||--o{ PRODUCT : contains
+
+    CUSTOMER {
+        int customer_id PK
+        varchar name
+        varchar email
+        varchar phone
+        varchar address
+    }
+
+    ORDER {
+        int order_id PK
+        int customer_id FK
+        date order_date
+        decimal total_amount
+        varchar status
+    }
+
+    ORDER_ITEM {
+        int order_item_id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+
+    PRODUCT {
+        int product_id PK
+        int category_id FK
+        varchar name
+        text description
+        decimal price
+        int stock
+    }
+
+    CATEGORY {
+        int category_id PK
+        varchar category_name
+    }
+
+SQL Table Code
+CREATE TABLE customer (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    address VARCHAR(255)
+);
+
+CREATE TABLE category (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE product (
+    product_id INT PRIMARY KEY,
+    category_id INT NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    stock INT DEFAULT 0,
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10,2),
+    status VARCHAR(30),
+
+    FOREIGN KEY (customer_id)
+        REFERENCES customer(customer_id)
+);
+
+CREATE TABLE order_item (
+    order_item_id INT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY (order_id)
+        REFERENCES orders(order_id),
+
+    FOREIGN KEY (product_id)
+        REFERENCES product(product_id)
+);
