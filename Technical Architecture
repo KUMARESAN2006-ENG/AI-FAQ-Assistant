@@ -1,0 +1,104 @@
+1. System Overview
+Describe the purpose, major components, users, and external systems.
+
+2. Architecture Diagram
+                    ┌─────────────────┐
+                    │   Web / Mobile  │
+                    │     Client      │
+                    └────────┬────────┘
+                             │ HTTPS
+                             ▼
+                    ┌─────────────────┐
+                    │   API Gateway   │
+                    └────────┬────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+        ┌───────────┐  ┌───────────┐  ┌───────────┐
+        │   Auth    │  │  Business │  │ Notification│
+        │  Service  │  │  Service  │  │  Service   │
+        └─────┬─────┘  └─────┬─────┘  └───────────┘
+              │              │
+              ▼              ▼
+        ┌───────────┐  ┌──────────────┐
+        │ User DB   │  │ Application  │
+        │           │  │     DB       │
+        └───────────┘  └──────────────┘
+
+3. Technology Stack
+Layer	Technology
+Frontend	React / Angular
+Backend	Java Spring Boot / .NET / Node.js
+API	REST / GraphQL
+Database	PostgreSQL / MySQL
+Cache	Redis
+Messaging	Kafka / RabbitMQ
+Authentication	OAuth 2.0 / JWT
+Deployment	Docker + Kubernetes
+Cloud	AWS / Azure / GCP
+
+4. Example Backend Code
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUser(id));
+    }
+}
+
+5. Service Layer
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+}
+
+6. Database Model
+CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+7. API Definition
+GET /api/users/{id}
+Authorization: Bearer <JWT>
+
+Response:
+
+{
+  "id": 101,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+8. Non-Functional Requirements
+Security: TLS, JWT/OAuth2, input validation, role-based access control.
+
+Scalability: Stateless services with horizontal scaling.
+
+Availability: Health checks, load balancing, and database backups.
+
+Performance: Redis caching and database indexing.
+
+Observability: Centralized logs, metrics, and distributed tracing.
+
+Maintainability: Layered architecture, automated testing, CI/CD.
