@@ -1,0 +1,151 @@
+## Demo Video — Text and Coding
+
+ A **demo video section** explains what will be shown while demonstrating the working system. For an **Online Shopping System**, you can use the following script and code.
+
+ ### Demo Video Script
+
+ Demo Video Script
+
+# Demo Video — Online Shopping System
+
+ ## 1\. Introduction
+
+ Hello everyone. In this demo, I will demonstrate our Online Shopping System.
+
+ The system allows users to register, log in, browse products, add products to the cart, complete payment, and track their orders.
+
+ ## 2\. User Registration
+
+ First, the user opens the application and selects the Register option.
+
+ The user enters their name, email address, phone number, and password. After submitting the registration form, the account is created successfully.
+
+ ## 3\. User Login
+
+ Next, the user enters their registered email and password.
+
+ After successful authentication, the user is redirected to the home page.
+
+ ## 4\. Browse Products
+
+ The home page displays the available products.
+
+ The user can search for a product, view product details, check the price and availability, and select the required quantity.
+
+ ## 5\. Add to Cart
+
+ The user selects a product and clicks the Add to Cart button.
+
+ The selected product is added to the shopping cart. The user can change the quantity or remove an item.
+
+ ## 6\. Checkout
+
+ After reviewing the cart, the user clicks Checkout.
+
+ The user enters the delivery address and selects a payment method.
+
+ ## 7\. Order Confirmation
+
+ After successful payment, the system creates the order and displays an order confirmation message.
+
+ The user can view the order number, products, total amount, and order status.
+
+ ## 8\. Order Tracking
+
+ Finally, the user can open the Orders page to track the order.
+
+ The order status can be displayed as Confirmed, Packed, Shipped, or Delivered.
+
+ ## 9\. Conclusion
+
+ This completes the demonstration of our Online Shopping System.
+
+ Thank you.
+
+ ### Demo Video Flow
+
+```
+START
+  ↓
+Open Application
+  ↓
+Register
+  ↓
+Login
+  ↓
+Home Page
+  ↓
+Browse Products
+  ↓
+View Product
+  ↓
+Add to Cart
+  ↓
+Checkout
+  ↓
+Payment
+  ↓
+Order Confirmation
+  ↓
+Track Order
+  ↓
+END
+```
+
+ ## Demo Video Flow — Mermaid Code
+
+ Mermaid flowchart: \[Start Demo\], Open Application, Register / Login, Home Page, Browse Products, View Product Details, Add to Cart, View Cart, Checkout, Enter Address, Select Payment, Payment Successful?, Order Confirmation, View Order, Track Order, \[End Demo\]
+
+## Example Demo Code
+
+ ### Login
+
+```
+<form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (email && password) {
+        alert("Login successful!");
+        window.location.href = "home.html";
+    }
+});
+</script>
+```
+
+ ### Add to Cart
+
+```
+let cart = [];
+
+function addToCart(product) {
+    cart.push(product);
+
+    console.log("Product added to cart:", product);
+    alert("Product added to cart!");
+}
+```
+
+ ### Order Confirmation
+
+```
+function placeOrder() {
+    const orderId = "ORD" + Date.now();
+
+    alert(
+        "Order placed successfully!\n" +
+        "Order ID: " + orderId
+    );
+}
+```
+
+ This gives you the **demo-video narration + user-flow diagram + executable example code** for a project presentation.
