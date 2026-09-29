@@ -1,0 +1,141 @@
+User Flow — Text and Coding
+A User Flow describes the sequence of steps a user follows to complete a task in a system.
+
+For example, for an Online Shopping System:
+
+User Flow in Text
+START
+  |
+  v
+Open Website
+  |
+  v
+Login / Register
+  |
+  +---- Existing User ----> Login
+  |
+  +---- New User ---------> Register
+                              |
+                              v
+                            Login
+                              |
+                              v
+                    Browse Products
+                              |
+                              v
+                       Select Product
+                              |
+                              v
+                       Add to Cart
+                              |
+                              v
+                       View Cart
+                              |
+                              v
+                     Proceed to Checkout
+                              |
+                              v
+                    Enter Delivery Address
+                              |
+                              v
+                      Select Payment
+                              |
+                              v
+                       Place Order
+                              |
+                              v
+                     Payment Successful?
+                       /             \
+                     No               Yes
+                     |                 |
+                     v                 v
+                Retry Payment     Order Confirmed
+                                       |
+                                       v
+                                Track Order
+                                       |
+                                       v
+                                      END
+
+User Flow Coding — Mermaid
+Yes
+No
+No
+Yes
+[Start]
+Open Website
+Existing User?
+Login
+Register
+Browse Products
+Select Product
+Add to Cart
+View Cart
+Proceed to Checkout
+Enter Delivery Address
+Select Payment Method
+Place Order
+Payment Successful?
+Retry Payment
+Order Confirmed
+Track Order
+[End]
+Simple User Flow
+User
+ ↓
+Login/Register
+ ↓
+Home Page
+ ↓
+Search Product
+ ↓
+Product Details
+ ↓
+Add to Cart
+ ↓
+Checkout
+ ↓
+Payment
+ ↓
+Order Confirmation
+ ↓
+Order Tracking
+
+User Flow Coding with Mermaid Subgraphs
+flowchart LR
+
+    subgraph Authentication
+        A[Start] --> B[Register]
+        B --> C[Login]
+    end
+
+    subgraph Shopping
+        C --> D[Home]
+        D --> E[Search Product]
+        E --> F[Product Details]
+        F --> G[Add to Cart]
+    end
+
+    subgraph Checkout
+        G --> H[Cart]
+        H --> I[Checkout]
+        I --> J[Payment]
+        J --> K[Order Confirmation]
+    end
+
+    K --> L[Track Order]
+    L --> M[End]
+
+Key symbols:
+
+--> = flow direction
+
+{ } = decision
+
+[ ] = process/page
+
+([ ]) = start/end
+
+|Yes| / |No| = decision branches
+
+
